@@ -4,8 +4,11 @@ import SectionCard from "@/components/SectionCard";
 import FormField from "@/components/FormField";
 import NisabSettings, { GOLD_NISAB_GRAMS, SILVER_NISAB_GRAMS } from "@/components/NisabSettings";
 import ResultsPanel from "@/components/ResultsPanel";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Index = () => {
+  const { t } = useLanguage();
+
   // Section A: Assets
   const [cashOnHand, setCashOnHand] = useState(0);
   const [cashInBank, setCashInBank] = useState(0);
@@ -63,11 +66,10 @@ const Index = () => {
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </p>
           <h1 className="font-display text-4xl font-bold text-foreground md:text-5xl">
-            Calculate Your Zakat
+            {t.heroTitle}
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            A simple, accurate Zakat calculator following the Hanafi school of thought. 
-            Enter your assets and liabilities to determine your Zakat obligation.
+            {t.heroDesc}
           </p>
         </div>
       </div>
@@ -78,57 +80,57 @@ const Index = () => {
           {/* Forms Column */}
           <div className="space-y-6 lg:col-span-2">
             {/* Section A */}
-            <SectionCard title="Zakatable Assets" subtitle="What you own" icon="💰">
+            <SectionCard title={t.sectionATitle} subtitle={t.sectionASubtitle} icon="💰">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Cash & Savings
+                {t.cashSavings}
               </p>
-              <FormField label="Cash on Hand" value={cashOnHand} onChange={setCashOnHand} />
-              <FormField label="Cash in Bank Accounts" value={cashInBank} onChange={setCashInBank} hint="Checking & savings accounts" />
-              <FormField label="Cash Saved for Specific Purposes" value={cashSaved} onChange={setCashSaved} hint="Hajj, wedding, house deposit, etc." />
+              <FormField label={t.cashOnHand} value={cashOnHand} onChange={setCashOnHand} />
+              <FormField label={t.cashInBank} value={cashInBank} onChange={setCashInBank} hint={t.cashInBankHint} />
+              <FormField label={t.cashSaved} value={cashSaved} onChange={setCashSaved} hint={t.cashSavedHint} />
 
               <div className="border-t pt-4">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Gold & Silver (Hanafi: Include ALL jewelry)
+                  {t.goldSilver}
                 </p>
               </div>
-              <FormField label="Value of Gold" value={goldValue} onChange={setGoldValue} hint="Market value of all gold including jewelry" />
-              <FormField label="Value of Silver" value={silverValue} onChange={setSilverValue} hint="Market value of all silver" />
+              <FormField label={t.goldValue} value={goldValue} onChange={setGoldValue} hint={t.goldHint} />
+              <FormField label={t.silverValue} value={silverValue} onChange={setSilverValue} hint={t.silverHint} />
 
               <div className="border-t pt-4">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Investments & Retirement
+                  {t.investments}
                 </p>
               </div>
-              <FormField label="Shares, Stocks & Mutual Funds" value={stocksValue} onChange={setStocksValue} hint="Current market value" />
-              <FormField label="Cryptocurrency" value={cryptoValue} onChange={setCryptoValue} hint="Current market value" />
-              <FormField label="Pensions & Retirement Funds" value={pensionValue} onChange={setPensionValue} hint="Currently withdrawable amount minus penalties" />
+              <FormField label={t.stocks} value={stocksValue} onChange={setStocksValue} hint={t.stocksHint} />
+              <FormField label={t.crypto} value={cryptoValue} onChange={setCryptoValue} hint={t.cryptoHint} />
+              <FormField label={t.pension} value={pensionValue} onChange={setPensionValue} hint={t.pensionHint} />
 
               <div className="border-t pt-4">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Business Assets
+                  {t.businessAssets}
                 </p>
               </div>
-              <FormField label="Business Inventory / Merchandise" value={businessInventory} onChange={setBusinessInventory} hint="Market value of goods held for sale" />
-              <FormField label="Cash in Business Accounts" value={businessCash} onChange={setBusinessCash} />
+              <FormField label={t.businessInventory} value={businessInventory} onChange={setBusinessInventory} hint={t.businessInventoryHint} />
+              <FormField label={t.businessCash} value={businessCash} onChange={setBusinessCash} />
 
               <div className="border-t pt-4">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Money Owed to You
+                  {t.moneyOwed}
                 </p>
               </div>
-              <FormField label="Strong Debts" value={strongDebts} onChange={setStrongDebts} hint="Money lent that you expect to be repaid" />
+              <FormField label={t.strongDebts} value={strongDebts} onChange={setStrongDebts} hint={t.strongDebtsHint} />
             </SectionCard>
 
             {/* Section B */}
-            <SectionCard title="Deductible Liabilities" subtitle="What you owe" icon="📋">
-              <FormField label="Immediate Debts" value={immediateDebts} onChange={setImmediateDebts} hint="Credit cards, personal loans due, overdrafts" />
-              <FormField label="Pending Bills" value={pendingBills} onChange={setPendingBills} hint="Rent, utilities, taxes currently due" />
-              <FormField label="Long-Term Debt Installments" value={longTermInstallments} onChange={setLongTermInstallments} hint="Next 12 months of mortgage, student loans, etc." />
-              <FormField label="Business Liabilities" value={businessLiabilities} onChange={setBusinessLiabilities} hint="Unpaid wages, immediate business debts" />
+            <SectionCard title={t.sectionBTitle} subtitle={t.sectionBSubtitle} icon="📋">
+              <FormField label={t.immediateDebts} value={immediateDebts} onChange={setImmediateDebts} hint={t.immediateDebtsHint} />
+              <FormField label={t.pendingBills} value={pendingBills} onChange={setPendingBills} hint={t.pendingBillsHint} />
+              <FormField label={t.longTermInstallments} value={longTermInstallments} onChange={setLongTermInstallments} hint={t.longTermInstallmentsHint} />
+              <FormField label={t.businessLiabilities} value={businessLiabilities} onChange={setBusinessLiabilities} hint={t.businessLiabilitiesHint} />
             </SectionCard>
 
             {/* Section C */}
-            <SectionCard title="Nisab Settings" subtitle="Zakat eligibility threshold" icon="⚖️">
+            <SectionCard title={t.sectionCTitle} subtitle={t.sectionCSubtitle} icon="⚖️">
               <NisabSettings
                 useGoldNisab={useGoldNisab}
                 onToggle={setUseGoldNisab}
@@ -156,7 +158,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="border-t py-6 text-center text-sm text-muted-foreground">
-        <p>This calculator follows the Hanafi school of thought. Consult a scholar for specific rulings.</p>
+        <p>{t.footer}</p>
       </footer>
     </div>
   );
