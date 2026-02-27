@@ -1,3 +1,4 @@
+import { useLanguage } from "@/hooks/useLanguage";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -22,6 +23,7 @@ const NisabSettings = ({
   onGoldPriceChange,
   onSilverPriceChange,
 }: NisabSettingsProps) => {
+  const { t } = useLanguage();
   const goldNisab = GOLD_NISAB_GRAMS * goldPricePerGram;
   const silverNisab = SILVER_NISAB_GRAMS * silverPricePerGram;
   const activeNisab = useGoldNisab ? goldNisab : silverNisab;
@@ -30,36 +32,33 @@ const NisabSettings = ({
     <div className="space-y-4">
       <div className="rounded-md bg-secondary p-4">
         <p className="text-sm text-secondary-foreground">
-          <strong>Recommended:</strong> Hanafi scholars recommend using the Silver Nisab, 
-          as its lower threshold means more people qualify to pay Zakat, benefiting the poor.
+          <strong>{t.recommended}</strong> {t.nisabRecommendation}
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <Label className="text-sm font-medium">Gold Price per Gram (৳)</Label>
+          <Label className="text-sm font-medium">{t.goldPriceLabel}</Label>
           <Input
             type="number"
             min={0}
             value={goldPricePerGram || ""}
             onChange={(e) => onGoldPriceChange(Number(e.target.value) || 0)}
-            placeholder="Enter current gold price"
           />
           <p className="text-xs text-muted-foreground">
-            Gold Nisab: {GOLD_NISAB_GRAMS}g = ৳{goldNisab.toLocaleString("en-BD")}
+            {t.goldNisabLabel} {GOLD_NISAB_GRAMS}g = ৳{goldNisab.toLocaleString("en-BD")}
           </p>
         </div>
         <div className="space-y-1.5">
-          <Label className="text-sm font-medium">Silver Price per Gram (৳)</Label>
+          <Label className="text-sm font-medium">{t.silverPriceLabel}</Label>
           <Input
             type="number"
             min={0}
             value={silverPricePerGram || ""}
             onChange={(e) => onSilverPriceChange(Number(e.target.value) || 0)}
-            placeholder="Enter current silver price"
           />
           <p className="text-xs text-muted-foreground">
-            Silver Nisab: {SILVER_NISAB_GRAMS}g = ৳{silverNisab.toLocaleString("en-BD")}
+            {t.silverNisabLabel} {SILVER_NISAB_GRAMS}g = ৳{silverNisab.toLocaleString("en-BD")}
           </p>
         </div>
       </div>
@@ -67,16 +66,16 @@ const NisabSettings = ({
       <div className="flex items-center justify-between rounded-md border p-4">
         <div>
           <Label className="text-sm font-medium">
-            Use {useGoldNisab ? "Gold" : "Silver"} Nisab
+            {useGoldNisab ? t.useGoldNisab : t.useSilverNisab}
           </Label>
           <p className="text-xs text-muted-foreground">
-            Current threshold: ৳{activeNisab.toLocaleString("en-BD")}
+            {t.currentThreshold} ৳{activeNisab.toLocaleString("en-BD")}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">Silver</span>
+          <span className="text-xs text-muted-foreground">{t.silver}</span>
           <Switch checked={useGoldNisab} onCheckedChange={onToggle} />
-          <span className="text-xs text-muted-foreground">Gold</span>
+          <span className="text-xs text-muted-foreground">{t.gold}</span>
         </div>
       </div>
     </div>
